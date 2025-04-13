@@ -1,20 +1,17 @@
    
-const {MongoClient} = require("mongodb")
-const client = new MongoClient(process.env.MONGO_URI)
-
+const mongoose= require("mongoose")
 
 const connectDB = async () => {
     try{
-        await client.connect()
-        console.log("MongoDb database connected Successfuly!");
+        await mongoose.connect(process.env.MONGO_URI)
+        console.log("MongoDb Atlas databazaga ulandi!");
     }catch(error){
-        console.log("Error with connecting to MongoDb:" + error);
+        console.log("MongoDb databazaga ulanixda xatolik:" + error);
         
     }
 }
 
 module.exports = {
-    client,
     connectDB
 }
 

@@ -1,102 +1,105 @@
-const { client, connectDB } = require("../config/config.db");
-const { ObjectId } = require("mongodb");
+const authorModels = require("../Schema/authors.schema");
+const booksModels = require("../Schema/books.schema");
+const BaseError = require("../Utils/base.error")
 
-const database = client.db("library");
-const authorsCollection = database.collection("authors");
+
 
 ///     GET AUTHOR      ///
-const getAuthors = async (req, res) => {
+const getAuthors = async (req, res,next) => {
   try {
-    const authors = await authorsCollection.find().toArray();
-    return res.status(200).json(authors);
+    const foundAuthors = await authorModels.find();
+    if (foundAuthors.length === 0) {
+     return next(BaseError.BadRequest(404,"Muallif topilmadi!"))
+    }
+    return res.status(201).json(foundAuthors);
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
 ///     GET ONE AUTHOR      ///
-const getOneAuthor = async (req, res) => {
+const getOneAuthor = async (req, res,next) => {
   try {
-    const authorId = new ObjectId(req.params.id);
-    const foundedAuthor = await authorsCollection.findOne({ _id: authorId });
+    const foundedAuthor = await authorModels.findById(req.params.id);
     if (!foundedAuthor) {
       return res.status(404).json({
-        message: `${authorId} li muallif topilmadi`,
+        message: `Muallif topilmadi`,
       });
     }
-    res.status(200).json(foundedAuthor);
+    const foundedBook = await booksModels.find({author:req.params.id})
+    res.status(200).json({author: foundedAuthor, authorBooks : foundedBook});
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
-///     ADD AUTHOR      ///
-const addAuthor = async (req, res) => {
+///     SEARCH AUTHOR   ///
+const searchAuthors = async (req,res,next) => {
   try {
-    const newAuthor = await authorsCollection.insertOne(req.body);
-    res.status(200).json(newAuthor);
+    if (req.query.fullName ) {
+      const result = await authorModels.find({
+        fullName :{$regex :req.query.fullName,$options:"i"}
+      })
+      return res.json(result)
+    }
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
+    next(error)
+  }
+}
+
+///     ADD AUTHOR      ///
+const addAuthor = async (req, res,next) => {
+  try {
+    await authorModels.create(req.body);
+    res.status(201).json({
+      message: "Yangi Muallif qoshildi",
     });
+  } catch (error) {
+    next(error)
   }
 };
 
 ///     UPDATE AUTHOR       ///
-const updateAuthor = async (req, res) => {
+const updateAuthor = async (req, res,next) => {
   try {
-    const authorId = new ObjectId(req.params.id);
-    const foundedAuthor = await authorsCollection.findOne({ _id: authorId });
+    const foundedAuthor = await authorModels.findById(req.params.id);
     if (!foundedAuthor) {
       return res.status(404).json({
-        message: `${authorId} li muallif topilmadi`,
+        message: `Muallif topilmadi`,
       });
     }
-    await authorsCollection.updateOne({ _id: authorId }, { $set: req.body });
+    await authorModels.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({
       message: "Ma`lumotlar yangilandi",
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
 ///     DELETE AUTHOR      ///
-const deleteAuthor = async (req,res) => {
-    try {
-        const authorId = new ObjectId(req.params.id);
-        const foundedAuthor = await authorsCollection.findOne({ _id: authorId });
-        if (!foundedAuthor) {
-          return res.status(404).json({
-            message: `${authorId} li muallif topilmadi`,
-          });
-        }
-        await authorsCollection.deleteOne({_id:authorId})
-        res.status(200).json({
-            messsage:`${authorId} li muallif ochirildi ! `
-        });
-      } catch (error) {
-        return res.status(500).json({
-          message: "Server xatosi",
-          error: error.message,
-        });
-      }
-}
+const deleteAuthor = async (req, res,next) => {
+  try {
+    const foundedAuthor = await authorModels.findById(req.params.id)
+    if(!foundedAuthor) {
+      return res.status(404).json({
+        message: `Muallif topilmadi`,
+      });
+    }
+    await authorModels.findByIdAndDelete(req.params.id)
+    res.status(200).json({
+      messsage: `Muallif ochirildi ! `,
+    });
+  } catch (error) {
+    next(error)
+  }
+};
 
 module.exports = {
   getAuthors,
   getOneAuthor,
+  searchAuthors,
   addAuthor,
   updateAuthor,
-  deleteAuthor
+  deleteAuthor,
 };

@@ -1,104 +1,108 @@
-const { client, connectDB } = require("../config/config.db");
-const { ObjectId } = require("mongodb");
-
-const database = client.db("library");
-const booksCollection = database.collection("books");
+const booksModels = require("../Schema/books.schema")
 
 ///////   GET BOOKS         /////
-const getBooks = async (req, res) => {
+const getBooks = async (req, res,next) => {
   try {
-    const books = await booksCollection.find().toArray();
-    // if (books.length === 0) {
-
-    // }
+    const books = await booksModels.find().populate("auther","-_id  -dateOfBrith -dateOfDeath -country -bio")
+    if (books.length === 0) {
+      return res.status(404).json({
+        message:"Kitoblar topilmadi!"
+      })
+    }
     return res.status(404).json(books);
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
 ///         GET ONE BOOK        ///
-const getOneBook = async (req, res) => {
+const getOneBook = async (req, res,next) => {
   try {
-    const bookId = new ObjectId(req.params.id)
-    const foundedBook = await booksCollection.findOne({_id:bookId})
+    const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
         return res.status(404).json({
-            message:`${bookId} li kitob topilmadi`
+            message:`Kitob topilmadi`
         })
     }
+    
     return res.status(200).json(foundedBook);
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
-//////       ADD BOOK       /////
-const addBook = async (req, res) => {
+///     SEARCH AUTHORS      ///
+const searchBooks = async (req,res,next) =>{
   try {
-    const newBook = await booksCollection.insertOne(req.body);
-    res.status(201).json(newBook);
+    if (req.query.title) {
+      const result = await booksModels.find({
+        title:{$regex :req.query.title , $options : "i"}
+      })
+    return res.json(result)
+    }
+    if (req.query.author) {
+      const result = await booksModels.find({
+        author : {$regex :req.query.author , $options : "i"}
+      })
+      return res.json(result)
+    }
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
+    next(error)
+  }
+}
+
+//////       ADD BOOK       /////
+const addBook = async (req, res,next) => {
+  try {
+    const newBook = await booksModels.create(req.body);
+    res.status(201).json({
+      message:"Yangi kitob qoshildi"
     });
+  } catch (error) {
+    next(error)
   }
 };
 
 ///         UPDATE BOOK     ////
-const updateBook = async (req, res) => {
+const updateBook = async (req, res,next) => {
   try {
-    const bookId = new ObjectId(req.params.id);
-    const foundedBook = await booksCollection.findOne({ _id: bookId });
+    const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
       return res.status(404).json({
-        message: `${bookId} li kitob topilmadi`,
+        message: `Kitob topilmadi`,
       });
     }
-    await booksCollection.updateOne({ _id: bookId }, { $set: req.body });
-    res.status(200).json({
+    await booksModels.findByIdAndUpdate(req.params.id, req.body)
+     res.status(201).json({
       message: "Ma`lumotlar o`zgardi",
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
 ////            DELETE BOOK             ///
-const deleteBook = async (req, res) => {
+const deleteBook = async (req, res,next) => {
   try {
-    const bookId = new ObjectId(req.params.id);
-    const foundedBook = await booksCollection.findOne({ _id: bookId });
+    const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
       return res.status(404).json({
-        message: `${bookId} li kitob topilmadi`,
+        message: `Kitob topilmadi`,
       });
     }
-    await booksCollection.deleteOne({ _id: bookId });
+    await booksModels.findByIdAndDelete(req.params.id)
     res.status(200).json({
       message: "Kitob o`chirildi",
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server xatosi",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
 module.exports = {
   getBooks,
   getOneBook,
+  searchBooks,
   addBook,
   updateBook,
   deleteBook,
