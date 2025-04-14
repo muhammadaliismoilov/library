@@ -1,67 +1,69 @@
-const Joi = require("joi");
-const currentYear = new Date().getFullYear;
-const booksValidation = (data) => {
-  try {
-    const booksValidate = Joi.object({
-      titlt: Joi.string().min(2).max(40).required().message({
-        "string.base": "Kitob nomi stringda kiritilishi shart!",
-        "string.empty": "Kitob nomi bosh bolmasligi kerak",
-        "any.required": "Kitob nomi talab qilinadi va kiritilishi lozim!",
-        "string.min":
-          "Kitob nomi kamida  ikki ta belgidan iborat bolishi kerak!",
-        "string.max": "Kitob nomi 40 ta belgidan iborak bolishi kerak!",
-      }),
-      pages: Joi.number().min(20).max(5000).required().message({
-        "number.base": "Kitob varoqlari number bolishi kerak",
-        "number.empty": "Kitob varoqlari bosh bolmasligi kerak",
-        "any.required": "Kitob varoqlari berilishi shart",
-        "number.min": "Kitob varoqlari 20 dan kam bolmasligi kerak",
-        "number.max": "kitob varoqlari 5000 dan kop  bolmasligi kerak ",
-      }),
-      year: Joi.number()
-        .min(1800)
-        .max(currentYear)
-        .required()
-        .message({
-          "number.base": "Kitob yili number bolishi kerak",
-          "number.empty": "Kitob yili bosh bolmasligi kerak",
-          "any.required": "Kitob yili berilishi shart",
-          "number.min": "Kitob yili 1800 dan kam bolmasligi kerak",
-          "number.max": `Kitob yili ${currentYear} da kop bolmasligi kerak `,
-        }),
-      price: Joi.number().min(0).required().message({
-        "number.base": "Kitob narxi number bolishi kerak",
-        "number.empty": "Kitob narxi bosh bolmasligi kerak",
-        "any.required": "Kitob narxi berilishi shart",
-        "number.min": "Kitob narxi 0 dan kam bolmasligi kerak",
-      }),
-      country: Joi.string().min(2).max(40).required().message({
-        "string.base": "Mamlakat nomi stringda kiritilishi shart!",
-        "string.empty": "Mamlakat nomi bosh bolmasligi kerak",
-        "any.required": "Mamlakat nomi talab qilinadi va kiritilishi lozim!",
-        "string.min":
-          "Mamlakat nomi kamida  ikki ta belgidan iborat bolishi kerak!",
-        "string.max": "Mamlakat nomi 40 ta belgidan iborak bolishi kerak!",
-      }),
-      author: Joi.string().min(2).max(50).required().message({
-        "string.base": "Muallif stringda kiritilishi shart!",
-        "string.empty": "Muallif bosh bolmasligi kerak",
-        "any.required": "Muallif talab qilinadi va kiritilishi lozim!",
-        "string.min": "Muallif kamida  2 ta belgidan iborat bolishi kerak!",
-        "string.max": "Muallif 40 ta belgidan iborak bolishi kerak!",
-      }),
-      discription: Joi.string().min(50).max(1000).required().message({
-        "string.base": "Tavfsifi stringda kiritilishi shart!",
-        "string.empty": "Tavfsifi bosh bolmasligi kerak",
-        "any.required": "Tavfsifi talab qilinadi va kiritilishi lozim!",
-        "string.min": "Tavfsifi kamida 50 ta belgidan iborat bolishi kerak!",
-        "string.max": "Tavfsifi 1000 ta belgidan iborak bolishi kerak!",
-      }),
-    });
-    return booksValidate.validate(data);
-  } catch (error) {
-    return new Error(error);
-  }
-};
 
-module.exports = booksValidation;
+const Joi = require("joi")
+const currentYear = new Date().getFullYear()
+const booksValidation = (data) => {
+    try {
+        const booksValidationSchema = Joi.object({
+            title: Joi.string().min(2).max(40).required().messages({
+                "string.base": "Kitob nomi string ko'rinishida bo'lishi shart!",
+                "string.empty": "Kitob nomi bo'sh bo'lmasligi kerak!",
+                "any.required": "Kitob nomi kiritilishi shart!",
+                "string.min": "Kitob nomi kamida 2(ikki) ta belgidan iborat bo'lishi zarur!",
+                "string.max": "Kitob nomi 40(qirq) ta belgidan ko'p bo'lmasligi zarur!",
+
+            }),
+            pages: Joi.number().min(10).max(5000).required().messages({
+                "number.base": "Kitob varoqlari son ko'rinishida berilishi shart!",
+                "number.empty": "Kitob varoqlari qismi bo'sh bo'lmasligi zarur!",
+                "number.required": "Kitob varoqlarini kiritish zarur!",
+                "number.min": "Kitob varoqlari soni 10 dan kam bo'lmasligi zarur!",
+                "number.max": "Kitob varoqlari soni 5000 dan ko'p bo'lmasligi zarur!"
+            }),
+            year: Joi.number().min(600).max(currentYear).required().messages({
+                "number.base": "Kitob yili berilishi zarur!",
+                "number.empty": "Kitob yili qismi bo'sh bo'lmasligi zarur!",
+                "number.required": "Kitob yilini kiritish zarur!",
+                "number.min": "Kitob yili kamida 600-yildan kam bo'lmasligi zarur!",
+                "number.max": `Kitob yili ${currentYear} dan keyin bo'lmasligi zarur!`
+            }),
+            price: Joi.number().min(0).required().messages({
+                "number.base": "Kitob narxi son ko'rinishida berilishi shart!",
+                "number.empty": `"Kitob narxi" qismi bo'sh bo'lmasligi zarur!`,
+                "number.required": "Kitob narxini kiritish zarur!",
+                "number.min": "Kitob narxi 0 dan kam bo'lmasligi shart!"
+            }),
+            country: Joi.string().min(1).max(50).required().messages({
+                "string.base": "Kitob davlati string ko'rinishida bo'lishi shart!",
+                "string.empty": "Kitob davlati bo'sh bo'lmasligi kerak!",
+                "any.required": "Kitob davlati kiritilishi shart!",
+                "string.min": "Kitob davlati nomi kamida 1(bir) ta belgidan iborat bo'lishi zarur!",
+                "string.max": "Kitob davlati nomi 50(ellik) ta belgidan ko'p bo'lmasligi zarur!",
+
+            }),
+            author: Joi.string().min(1).max(100).required().messages({
+                "string.base": "Kitob authori ismi string ko'rinishida bo'lishi shart!",
+                "string.empty": "Kitob authori ismi bo'sh bo'lmasligi kerak!",
+                "any.required": "Kitob authori ismi  kiritilishi shart!",
+                "string.min": "Kitob authori ismi kamida 1(bir) ta belgidan iborat bo'lishi zarur!",
+                "string.max": "Kitob authori ismi 50(ellik) ta belgidan ko'p bo'lmasligi zarur!",
+
+            }),
+            description: Joi.string().min(1).max(1500).required().messages({
+                "string.base": "Kitob haqida ma'lumot string ko'rinishida berilishi zarur!",
+                "string.empty": "Kitob haqida ma'lumot maydoni to'ldirilishi zarur",
+                "any.required": "Kitob haqida ma'lumot berilishi zarur!",
+                "string.min": "Kitob haqida ma'lumot 1 ta belgidan ko'p bo'lishi zarur!",
+                "string.max": "Kitob haqida ma'lumot 1500 ta belgidan ko'p bo'lmasligi zarur!",
+
+            })
+
+        })
+        return booksValidationSchema.validate(data)
+    } catch (error) {
+        return new Error(error);
+
+    }
+
+}
+
+module.exports = booksValidation

@@ -1,5 +1,6 @@
 const BaseError = require("../Utils/base.error")
 const membersModels = require("../Schema/members.schema")
+const commentModels = require("../Schema/comment.schema")
 
 ///         GET MEMBER          ///
 const getMembers = async (req,res,next) =>{
@@ -81,6 +82,7 @@ const deleteMember = async (req,res,next) => {
         next(error)
     }
 }
+
 
 module.exports ={
     getMembers,

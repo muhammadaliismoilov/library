@@ -48,29 +48,24 @@ const verify = async (req, res, next) => {
     }
     const foundedUser = await authModels.findOne({ email });
     if (!foundedUser) {
-      return next(
-        BaseError.BadRequest(403, "Foydalanuvchi topilmadi")
-      );
+      return next(BaseError.BadRequest(403, "Foydalanuvchi topilmadi"));
     }
-    const now = new Date()
+    const now = new Date();
     if (foundedUser.lastTime < now) {
-        return next(
-            BaseError.BadRequest(403, "Vaqt tugagan!")
-          );
+      return next(BaseError.BadRequest(403, "Vaqt tugagan!"));
     }
+    console.log(code);
+    
     if (code !== foundedUser.otp) {
-        return next(
-            BaseError.BadRequest(403, "Tasdiqlash kodi noto'g'ri!")
-          );
+      return next(BaseError.BadRequest(403, "Tasdiqlash kodi noto'g'ri!"));
     }
-    foundedUser.isVerified = true
-    foundedUser.otp = 0
-    foundedUser.lastTime = 0
-    await foundedUser.save()
+    foundedUser.isVerified = true;
+    foundedUser.otp = 0;
+    foundedUser.lastTime = 0;
+    await foundedUser.save();
     return res.status(200).json({
-        message:"Emailingizni tekshiring!"
-    })
-
+      message: "Emailingizni tekshiring!",
+    });
   } catch (error) {
     return next(error);
   }
@@ -78,5 +73,5 @@ const verify = async (req, res, next) => {
 
 module.exports = {
   register,
-  verify
+  verify,
 };

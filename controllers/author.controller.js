@@ -22,9 +22,7 @@ const getOneAuthor = async (req, res,next) => {
   try {
     const foundedAuthor = await authorModels.findById(req.params.id);
     if (!foundedAuthor) {
-      return res.status(404).json({
-        message: `Muallif topilmadi`,
-      });
+      return next(BaseError.BadRequest(404,"Muallif topilmadi!"))
     }
     const foundedBook = await booksModels.find({author:req.params.id})
     res.status(200).json({author: foundedAuthor, authorBooks : foundedBook});
@@ -64,9 +62,7 @@ const updateAuthor = async (req, res,next) => {
   try {
     const foundedAuthor = await authorModels.findById(req.params.id);
     if (!foundedAuthor) {
-      return res.status(404).json({
-        message: `Muallif topilmadi`,
-      });
+      return next(BaseError.BadRequest(404,"Muallif topilmadi!"))
     }
     await authorModels.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({
@@ -82,9 +78,7 @@ const deleteAuthor = async (req, res,next) => {
   try {
     const foundedAuthor = await authorModels.findById(req.params.id)
     if(!foundedAuthor) {
-      return res.status(404).json({
-        message: `Muallif topilmadi`,
-      });
+      return next(BaseError.BadRequest(404,"Muallif topilmadi!"))
     }
     await authorModels.findByIdAndDelete(req.params.id)
     res.status(200).json({

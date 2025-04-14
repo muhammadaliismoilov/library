@@ -12,16 +12,18 @@ const booksRouter = require("./routes/books.routes")
 const authorsRouter = require("./routes/authors.routes")
 const membersRouter = require("./routes/members.routes")
 const authRouter = require("./routes/auth.routes")
-
+// const commentRouter = require("./routes/comment.routes")
 const {connectDB} = require("./config/config.db")
-connectDB()
+
 app.use(booksRouter)
 app.use(authorsRouter)
 app.use(membersRouter)
 app.use(authRouter)
+// app.use(commentRouter)
 
 
 
+connectDB()
 app.use(error_middeleware)
 app.use((req,res,next) => {
     res.status(404).json({

@@ -3,11 +3,9 @@ const booksModels = require("../Schema/books.schema")
 ///////   GET BOOKS         /////
 const getBooks = async (req, res,next) => {
   try {
-    const books = await booksModels.find().populate("auther","-_id  -dateOfBrith -dateOfDeath -country -bio")
+    const books = await booksModels.find()
     if (books.length === 0) {
-      return res.status(404).json({
-        message:"Kitoblar topilmadi!"
-      })
+      return next(BaseError.BadRequest(404,"Kitoblar topilmadi!"))
     }
     return res.status(404).json(books);
   } catch (error) {
@@ -20,9 +18,7 @@ const getOneBook = async (req, res,next) => {
   try {
     const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
-        return res.status(404).json({
-            message:`Kitob topilmadi`
-        })
+      return next(BaseError.BadRequest(404,"Kitob topilmadi!"))
     }
     
     return res.status(200).json(foundedBook);
@@ -68,9 +64,7 @@ const updateBook = async (req, res,next) => {
   try {
     const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
-      return res.status(404).json({
-        message: `Kitob topilmadi`,
-      });
+      return next(BaseError.BadRequest(404,"Kitob topilmadi!"))
     }
     await booksModels.findByIdAndUpdate(req.params.id, req.body)
      res.status(201).json({
@@ -86,9 +80,7 @@ const deleteBook = async (req, res,next) => {
   try {
     const foundedBook = await booksModels.findById(req.params.id)
     if (!foundedBook) {
-      return res.status(404).json({
-        message: `Kitob topilmadi`,
-      });
+      return next(BaseError.BadRequest(404,"Kitob topilmadi!"))
     }
     await booksModels.findByIdAndDelete(req.params.id)
     res.status(200).json({
