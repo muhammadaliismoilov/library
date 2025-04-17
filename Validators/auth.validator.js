@@ -1,6 +1,5 @@
 
 const Joi = require("joi");
-const currentYear = new Date().getFullYear();
 const authValidation = (data) => {
   try {
     const authValudationSchema = Joi.object({

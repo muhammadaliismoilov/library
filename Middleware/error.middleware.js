@@ -3,8 +3,6 @@ const BaseError = require("../Utils/base.error")
 module.exports = (err,req,res,next) => {
 //xatolik BaseErrorda  bolsa 
 
-console.log("men i errorim",err);
-
 if (err instanceof BaseError) {
     res.status(err.status).json({
         message:err.message,

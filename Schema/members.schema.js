@@ -7,7 +7,7 @@ const membersSchema = new mongoose.Schema({
         required:[true,"A`zo ismi berilishi shart!"],
         minLength:[3,"A`zo ismi 3 ta belgidan kam bolmasligi kerak"]
     },
-    dateOfBrith:{
+    dateOfBirth:{
         type:Date,
         required:[true,"A`zo tugilgan sana berilishi shart"]
     },

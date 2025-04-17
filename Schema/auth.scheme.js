@@ -8,7 +8,8 @@ const authSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:[false,"Email berilishi shart"]
+        required:[false,"Email berilishi shart"],
+        unique:true
     },
     password:{
         type:String,
@@ -17,10 +18,11 @@ const authSchema = new mongoose.Schema({
     role:{
         type:String,
         required:false,
-        default:"user"
+        default:"user",
+        enum: ["user","admin","superadmin"]
     },
     otp:{
-        type:Number,
+        type:String,
         required:false,
         default:0
     },
