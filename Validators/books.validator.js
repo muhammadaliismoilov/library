@@ -48,7 +48,7 @@ const booksValidation = (data) => {
                 "string.max": "Kitob authori ismi 50(ellik) ta belgidan ko'p bo'lmasligi zarur!",
 
             }),
-            description: Joi.string().min(1).max(1500).required().messages({
+            discription: Joi.string().min(1).max(1500).required().messages({
                 "string.base": "Kitob haqida ma'lumot string ko'rinishida berilishi zarur!",
                 "string.empty": "Kitob haqida ma'lumot maydoni to'ldirilishi zarur",
                 "any.required": "Kitob haqida ma'lumot berilishi zarur!",

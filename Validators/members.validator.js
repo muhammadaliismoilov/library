@@ -1,4 +1,3 @@
-
 const Joi = require("joi");
 const currentYear = new Date().getFullYear();
 const membersValidation = (data) => {
@@ -10,17 +9,15 @@ const membersValidation = (data) => {
         "any.required": "A`zo ismi kiritilishi shart!",
         "string.min":
           "A`zo ismi kamida 2(ikki) ta belgidan iborat bo'lishi zarur!",
-        "string.max":
-          "A`zo ismi 100(yuz) ta belgidan ko'p bo'lmasligi zarur!",
+        "string.max": "A`zo ismi 100(yuz) ta belgidan ko'p bo'lmasligi zarur!",
       }),
       dateOfBirth: Joi.date().required().messages({
-        "date.base":
-          "A`zo tug'ilgan sanasi Date ko'rinishida berilishi shart!",
+        "date.base": "A`zo tug'ilgan sanasi Date ko'rinishida berilishi shart!",
         "date.empty": "A`zo tug'ilgan sanasi bo'sh bo'lmasligi zarur!",
         "date.required": "A`zo tug'ilgan sanasi kiritish shart!",
       }),
-  
-        address: Joi.string().min(2).max(120).required().messages({
+
+      address: Joi.string().min(2).max(120).required().messages({
         "string.base": "Davlat string ko'rinishida berilishi shart!",
         "string.empty": `Davlat nomi maydoni bo'sh bo'lmasligi shart!`,
         "string.required": "Davlat nomini kiritish shart!",
@@ -32,10 +29,8 @@ const membersValidation = (data) => {
           "A`zo haqida ma'lumot string ko'rinishida bo'lishi shart!",
         "string.empty": "A`zo haqida ma'lumot bo'sh bo'lmasligi shart!",
         "any.required": "A`zo haqida ma'lumot kiritish shart",
-        "string.min":
-          "A`zo haqida malumot 1 ta belgidan ko'p bo'lishi shart!",
-          "string.max":
-          "A`zo ismi 100(yuz) ta belgidan ko'p bo'lmasligi zarur!",
+        "string.min": "A`zo haqida malumot 1 ta belgidan ko'p bo'lishi shart!",
+        "string.max": "A`zo ismi 100(yuz) ta belgidan ko'p bo'lmasligi zarur!",
       }),
     });
     return membersValudationSchema.validate(data);

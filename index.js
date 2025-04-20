@@ -15,6 +15,8 @@ const membersRouter = require("./routes/members.routes")
 const authRouter = require("./routes/auth.routes")
 // const commentRouter = require("./routes/comment.routes")
 const {connectDB} = require("./config/config.db")
+const swaggerUiExpress = require("swagger-ui-express")
+const swaggerDocument =require("./Utils/swagger")
 
 
 app.use(booksRouter)
@@ -22,6 +24,7 @@ app.use(authorsRouter)
 app.use(membersRouter)
 app.use(authRouter)
 // app.use(commentRouter)
+app.use(`/api-docs`,swaggerUiExpress.serve,swaggerUiExpress.setup(swaggerDocument))
 
 
 

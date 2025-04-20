@@ -33,6 +33,8 @@ const searchMembers = async (req,res,next) => {
           fullName :{$regex :req.query.fullName,$options:"i"}
         })
         return res.json(result)
+      }else{
+        throw BaseError.BadRequest(404,"Bunday isimli a`zo yoq")
       }
     } catch (error) {
       next(error)
