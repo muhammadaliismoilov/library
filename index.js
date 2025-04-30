@@ -13,10 +13,10 @@ const booksRouter = require("./routes/books.routes")
 const authorsRouter = require("./routes/authors.routes")
 const membersRouter = require("./routes/members.routes")
 const authRouter = require("./routes/auth.routes")
-// const commentRouter = require("./routes/comment.routes")
-const {connectDB} = require("./config/config.db")
+const logger = require("./Utils/logger")
 const swaggerUiExpress = require("swagger-ui-express")
 const swaggerDocument =require("./Utils/swagger")
+const {connectDB} = require("./config/config.db")
 
 
 app.use(booksRouter)
@@ -37,7 +37,8 @@ app.use((req,res,next) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`Server ${PORT} da ishladi`);
+    console.log(`Server ${PORT} da ishladi`)
+    logger.info(`Server ${PORT} da ishladi`)
 })
 
 

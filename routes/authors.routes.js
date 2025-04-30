@@ -301,6 +301,4 @@ authorsRouter.put("/update_author/:id",checkAdmin,updateAuthor)
  *                   example: Muallif topilmadi!
  */
 authorsRouter.delete("/delete_author/:id",checkAdmin,deleteAuthor)
-
-
 module.exports = authorsRouter

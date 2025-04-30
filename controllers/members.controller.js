@@ -40,19 +40,6 @@ const searchMembers = async (req,res,next) => {
       next(error)
     }
 }
-
-///         ADD MEMBERS         ///
-const addMember = async (req,res,next) => {
-    try {
-        await membersModels.create(req.body)
-        res.status(200).json({
-            message:"Azo qo`shildi"
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
 ///         UPDATE MEMBER           ///
 const updateMember = async (req,res,next) => {
     try {
@@ -90,7 +77,6 @@ module.exports ={
     getMembers,
     getOneMember,
     searchMembers,
-    addMember,
     updateMember,
     deleteMember
 }

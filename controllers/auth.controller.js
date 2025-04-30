@@ -3,10 +3,8 @@ const bcryptjs = require("bcryptjs");
 const BaseError = require("../Utils/base.error");
 const emailSenderService = require("../Utils/email.service");
 const { accesssToken, refreshToken } = require("../Utils/token_generator");
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const emailSendingService = require("../Utils/email.service");
-const { log } = require("console");
+
 
 ///     REGISTER      ///
 const register = async (req, res, next) => {
@@ -200,7 +198,7 @@ module.exports = {
   register,
   verify,
   login,
-  logout,
   forgotPassword,
   changePassword,
+  logout,
 };

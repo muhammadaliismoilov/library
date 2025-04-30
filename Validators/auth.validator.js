@@ -1,4 +1,3 @@
-
 const Joi = require("joi");
 const authValidation = (data) => {
   try {
@@ -18,14 +17,14 @@ const authValidation = (data) => {
         "date.empty": "Email bo'sh bo'lmasligi zarur!",
         "date.required": "Email kiritish shart!",
       }),
-      password: Joi.string().min(4).max(10).required().messages({
+      password: Joi.string().min(4).max(20).required().messages({
         "string.base": "Foydalanuvchi ismi string ko'rinishida bo'lishi shart!",
         "string.empty": "Foydalanuvchi ismi bo'sh bo'lmasligi kerak!",
           "string.required": "Parol kiritilishi shart!",
           "string.min":
           "Parol 4 ta belgidan kam bolmasligi kerak",
         "string.max":
-          "Parol 10 ta belgidan ko`p bolmasligi kerak",
+          "Parol 20 ta belgidan ko`p bolmasligi kerak",
         })
     });
     return authValudationSchema.validate(data);

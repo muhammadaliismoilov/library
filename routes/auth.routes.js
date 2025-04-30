@@ -290,10 +290,6 @@ authRouter.post("/change_password",changePassword)
  *                   example: Foydalanuvchi topilmadi
  */
 authRouter.get("/logout",logout)
-
-
-authRouter.post("/refresh",refreshTokenMiddleware)
-
 module.exports = authRouter
 
 
