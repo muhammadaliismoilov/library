@@ -1,10 +1,7 @@
 const Router = require("express")
-const { getMembers, getOneMember, searchMembers, updateMember, deleteMember, addMember } = require("../controllers/members.controller")
-const validateMembers = require("../Middleware/members.validator")
+const { getMembers, getOneMember, searchMembers, updateMember, deleteMember} = require("../controllers/members.controller")
 const { checkAdmin } = require("../Middleware/access_token_middleware")
-
 const membersRouter = Router()
-
 /**
  * @swagger
  * /get_members:
@@ -37,8 +34,7 @@ const membersRouter = Router()
  *                     type: string
  *                     example: men kitob oqishga qiziqaman.......
  */
-membersRouter.get("/get_members",getMembers)
-
+membersRouter.get("/get_members",checkAdmin,getMembers)
 /**
  * @swagger
  * /get_one_member/{id}:
@@ -87,7 +83,6 @@ membersRouter.get("/get_members",getMembers)
  *                   example: Muallif topilmadi!
  */
 membersRouter.get("/get_one_member/:id",getOneMember)
-
 /**
  * @swagger
  * /update_member/{id}:
@@ -172,7 +167,6 @@ membersRouter.get("/get_one_member/:id",getOneMember)
  *                   example: A'zo topilmadi!
  */
 membersRouter.put("/update_member/:id",updateMember)
-
 /**
  * @swagger
  * /delete_member/{id}:
@@ -218,6 +212,5 @@ membersRouter.put("/update_member/:id",updateMember)
  *                   type: string
  *                   example: Noto'g'ri so'rov
  */
-membersRouter.delete("/delete_member/:id",checkAdmin,deleteMember)
-
+membersRouter.delete("/delete_member/:id",deleteMember)
 module.exports = membersRouter

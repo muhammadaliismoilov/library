@@ -2,9 +2,7 @@ const {Router} = require("express")
 const { getAuthors, addAuthor, updateAuthor, getOneAuthor, deleteAuthor, searchAuthors } = require("../controllers/author.controller")
 const validateAuthors = require("../Middleware/authors.middleware")
 const { checkAdmin } = require("../Middleware/access_token_middleware")
-
 const authorsRouter = Router()
-
 /**
  * @swagger
  * /get_authors:
@@ -45,7 +43,6 @@ const authorsRouter = Router()
  *                   example: Muallif topilmadi!
  */
 authorsRouter.get("/get_authors",getAuthors)
-
 /**
  * @swagger
  * /get_one_author/{id}:
@@ -111,7 +108,6 @@ authorsRouter.get("/get_authors",getAuthors)
  *                   example: Muallif topilmadi!
  */
 authorsRouter.get("/get_one_author/:id",getOneAuthor)
-
 /**
  * @swagger
  * /search_authors:
@@ -152,7 +148,6 @@ authorsRouter.get("/get_one_author/:id",getOneAuthor)
  *         description: Serverda xatolik yuz berdi
  */
 authorsRouter.get("/search_authors",searchAuthors)
-
 /**
  * @swagger
  * /add_author:
@@ -204,7 +199,6 @@ authorsRouter.get("/search_authors",searchAuthors)
  *         description: Noto‘g‘ri so‘rov (valiadatsiya xatosi yoki to‘liq bo‘lmagan ma’lumot)
  */
 authorsRouter.post("/add_author",[checkAdmin,validateAuthors],addAuthor)
-
 /**
  * @swagger
  * /update_author/{id}:
@@ -264,7 +258,6 @@ authorsRouter.post("/add_author",[checkAdmin,validateAuthors],addAuthor)
  *                   example: Muallif topilmadi!
  */
 authorsRouter.put("/update_author/:id",checkAdmin,updateAuthor)
-
 /**
  * @swagger
  * /delete_author/{id}:

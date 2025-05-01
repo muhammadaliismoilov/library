@@ -52,7 +52,6 @@ const booksRouter = Router()
  *                   example: Kitoblar topilmadi!
  */
 booksRouter.get("/get_books",getBooks)
-
 /**
  * @swagger
  * /get_one_book/{id}:
@@ -104,7 +103,6 @@ booksRouter.get("/get_books",getBooks)
  *                   example: Kitob topilmadi!
  */
 booksRouter.get("/get_one_book/:id",getOneBook)
-
 /**
  * @swagger
  * /search_books:
@@ -151,7 +149,6 @@ booksRouter.get("/get_one_book/:id",getOneBook)
  *                     example: 1925
  */
 booksRouter.get("/search_books",searchBooks)
-
 /**
  * @swagger
  * /add_book:
@@ -204,7 +201,6 @@ booksRouter.get("/search_books",searchBooks)
  *         description: Noto‘g‘ri ma’lumotlar yuborildi
  */
 booksRouter.post("/add_book",[checkAdmin,validateBooks],addBook) 
-
 /**
  * @swagger
  * /update_book/{id}:
@@ -271,7 +267,6 @@ booksRouter.post("/add_book",[checkAdmin,validateBooks],addBook)
  *                   example: Kitob topilmadi!
  */
 booksRouter.put("/update_book/:id",checkAdmin,updateBook)
-
 /**
  * @swagger
  * /delete_book/{id}:
@@ -308,6 +303,4 @@ booksRouter.put("/update_book/:id",checkAdmin,updateBook)
  *                   example: Kitob topilmadi!
  */
 booksRouter.delete("/delete_book/:id",checkAdmin,deleteBook)
-
-
 module.exports = booksRouter
