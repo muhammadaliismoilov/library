@@ -36,7 +36,7 @@ if (err.name === "JsonWebTokenError") {
 }
 if (err.name === "TokenExpiredError") {
     res.status(401).json({
-        message: "Token has sxpired"
+        message: "Token has expired"
     })
     return
 }

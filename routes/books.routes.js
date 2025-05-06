@@ -167,6 +167,7 @@ booksRouter.get("/search_books",searchBooks)
  *               - pages
  *               - year
  *               - price
+ *               - country
  *               - author
  *             properties:
  *               title:
@@ -181,6 +182,9 @@ booksRouter.get("/search_books",searchBooks)
  *               price:
  *                 type: integer
  *                 example: 125000
+ *               country:
+ *                 type:string
+ *                 example: O`zbekiston
  *               author:
  *                 type: string
  *                 example: 661f8c5bca18349b34321a8f
