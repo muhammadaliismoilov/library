@@ -1,6 +1,7 @@
 const Router = require("express")
 const { getMembers, getOneMember, searchMembers, updateMember, deleteMember} = require("../controllers/members.controller")
-const { checkAdmin } = require("../Middleware/access_token_middleware")
+const chekAdmin = require("../Middleware/access_token_middleware")
+
 const membersRouter = Router()
 /**
  * @swagger
@@ -34,7 +35,7 @@ const membersRouter = Router()
  *                     type: string
  *                     example: men kitob oqishga qiziqaman.......
  */
-membersRouter.get("/get_members",checkAdmin,getMembers)
+membersRouter.get("/get_members",chekAdmin,getMembers)
 /**
  * @swagger
  * /get_one_member/{id}:

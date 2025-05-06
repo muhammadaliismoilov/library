@@ -1,7 +1,8 @@
 const {Router} = require("express")
 const { getAuthors, addAuthor, updateAuthor, getOneAuthor, deleteAuthor, searchAuthors } = require("../controllers/author.controller")
 const validateAuthors = require("../Middleware/authors.middleware")
-const { checkAdmin } = require("../Middleware/access_token_middleware")
+const chekAdmin = require("../Middleware/access_token_middleware")
+
 const authorsRouter = Router()
 /**
  * @swagger
@@ -198,7 +199,7 @@ authorsRouter.get("/search_authors",searchAuthors)
  *       400:
  *         description: Noto‘g‘ri so‘rov (valiadatsiya xatosi yoki to‘liq bo‘lmagan ma’lumot)
  */
-authorsRouter.post("/add_author",[checkAdmin,validateAuthors],addAuthor)
+authorsRouter.post("/add_author",[chekAdmin,validateAuthors],addAuthor)
 /**
  * @swagger
  * /update_author/{id}:
@@ -257,7 +258,7 @@ authorsRouter.post("/add_author",[checkAdmin,validateAuthors],addAuthor)
  *                   type: string
  *                   example: Muallif topilmadi!
  */
-authorsRouter.put("/update_author/:id",checkAdmin,updateAuthor)
+authorsRouter.put("/update_author/:id",chekAdmin,updateAuthor)
 /**
  * @swagger
  * /delete_author/{id}:
@@ -293,5 +294,5 @@ authorsRouter.put("/update_author/:id",checkAdmin,updateAuthor)
  *                   type: string
  *                   example: Muallif topilmadi!
  */
-authorsRouter.delete("/delete_author/:id",checkAdmin,deleteAuthor)
+authorsRouter.delete("/delete_author/:id",chekAdmin,deleteAuthor)
 module.exports = authorsRouter

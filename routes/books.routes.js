@@ -1,8 +1,7 @@
 const {Router} = require("express")
 const { getBooks, addBook, updateBook, deleteBook, getOneBook, searchBooks } = require("../controllers/books.controller")
 const validateBooks = require("../Middleware/books.middleware")
-const { checkAdmin } = require("../Middleware/access_token_middleware")
-
+const chekAdmin = require("../Middleware/access_token_middleware")
 
 const booksRouter = Router()
 
@@ -200,7 +199,7 @@ booksRouter.get("/search_books",searchBooks)
  *       400:
  *         description: Noto‘g‘ri ma’lumotlar yuborildi
  */
-booksRouter.post("/add_book",[checkAdmin,validateBooks],addBook) 
+booksRouter.post("/add_book",[chekAdmin,validateBooks],addBook) 
 /**
  * @swagger
  * /update_book/{id}:
@@ -266,7 +265,7 @@ booksRouter.post("/add_book",[checkAdmin,validateBooks],addBook)
  *                   type: string
  *                   example: Kitob topilmadi!
  */
-booksRouter.put("/update_book/:id",checkAdmin,updateBook)
+booksRouter.put("/update_book/:id",chekAdmin,updateBook)
 /**
  * @swagger
  * /delete_book/{id}:
@@ -302,5 +301,5 @@ booksRouter.put("/update_book/:id",checkAdmin,updateBook)
  *                   type: string
  *                   example: Kitob topilmadi!
  */
-booksRouter.delete("/delete_book/:id",checkAdmin,deleteBook)
+booksRouter.delete("/delete_book/:id",chekAdmin,deleteBook)
 module.exports = booksRouter
