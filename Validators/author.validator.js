@@ -13,13 +13,12 @@ const authorValidation = (data) => {
           "Author ismi 100(yuz) ta belgidan ko'p bo'lmasligi zarur!",
       }),
       dateOfBirth: Joi.date().required().messages({
-        "date.base":
-          "Author tug'ilgan sanasi Date ko'rinishida berilishi shart!",
+        "date.base":"Author tug'ilgan sanasi Date ko'rinishida berilishi shart!",
         "date.empty": "Author tug'ilgan sanasi bo'sh bo'lmasligi zarur!",
         "date.required": "Author tug'ilgan sanasi kiritish shart!",
       }),
       dateOfDeath: Joi.date()
-        .max(currentYear)
+        .max('now')
         .messages({
           "date.required": "Kitob yilini kiritish zarur!",
           "date.min": "Kitob yili kamida 600-yildan kam bo'lmasligi zarur!",
