@@ -155,6 +155,8 @@ authorsRouter.get("/search_authors",searchAuthors)
  *   post:
  *     summary: Yangi muallif qo‘shish
  *     tags: [Authors]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -178,10 +180,10 @@ authorsRouter.get("/search_authors",searchAuthors)
  *               dateOfDeath:
  *                 type: string
  *                 format: date
- *                 example: 1936-12-28
+ *                 example: 2016-05-30
  *               country:
  *                 type: string
- *                 example: O`zbekiston
+ *                 example: O'zbekiston
  *               bio:
  *                 type: string
  *                 example: O‘zbek shoiri, dramaturg va jamoat arbobi...
@@ -195,11 +197,15 @@ authorsRouter.get("/search_authors",searchAuthors)
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Yangi Muallif qoshildi
+ *                   example: Yangi Muallif qo‘shildi
  *       400:
  *         description: Noto‘g‘ri so‘rov (valiadatsiya xatosi yoki to‘liq bo‘lmagan ma’lumot)
+ *       401:
+ *         description: Token kiritilmagan yoki noto‘g‘ri
+ *       403:
+ *         description: Sizda bu amalni bajarishga ruxsat yo‘q
  */
-authorsRouter.post("/add_author",[chekAdmin,validateAuthors],addAuthor)
+authorsRouter.post("/add_author", [chekAdmin, validateAuthors], addAuthor);
 /**
  * @swagger
  * /update_author/{id}:

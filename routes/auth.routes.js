@@ -1,8 +1,6 @@
 const Router =require("express")
 const { register, verify, login, logout, forgotPassword, changePassword } = require("../controllers/auth.controller")
 const validateAuth = require("../Middleware/auth.middleware")
-const { refreshTokenMiddleware } = require("../Middleware/refresh_token_middleware")
-
 
 const authRouter = Router()
 /**

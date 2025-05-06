@@ -154,6 +154,8 @@ booksRouter.get("/search_books",searchBooks)
  *   post:
  *     summary: Yangi kitob qo‘shish
  *     tags: [Books]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -195,9 +197,13 @@ booksRouter.get("/search_books",searchBooks)
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Yangi kitob qoshildi
+ *                   example: Yangi kitob qo‘shildi
  *       400:
  *         description: Noto‘g‘ri ma’lumotlar yuborildi
+ *       401:
+ *         description: Token kiritilmagan yoki noto‘g‘ri
+ *       403:
+ *         description: Sizda bu amalni bajarishga ruxsat yo‘q
  */
 booksRouter.post("/add_book",[chekAdmin,validateBooks],addBook) 
 /**
@@ -206,6 +212,8 @@ booksRouter.post("/add_book",[chekAdmin,validateBooks],addBook)
  *   put:
  *     summary: Kitob ma’lumotlarini yangilash
  *     tags: [Books]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -253,7 +261,7 @@ booksRouter.post("/add_book",[chekAdmin,validateBooks],addBook)
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Ma`lumotlar o`zgardi
+ *                   example: Ma’lumotlar o‘zgardi
  *       404:
  *         description: Kitob topilmadi
  *         content:
@@ -264,6 +272,10 @@ booksRouter.post("/add_book",[chekAdmin,validateBooks],addBook)
  *                 message:
  *                   type: string
  *                   example: Kitob topilmadi!
+ *       401:
+ *         description: Token yo‘q yoki noto‘g‘ri
+ *       403:
+ *         description: Ruxsat etilmagan foydalanuvchi
  */
 booksRouter.put("/update_book/:id",chekAdmin,updateBook)
 /**
@@ -272,6 +284,8 @@ booksRouter.put("/update_book/:id",chekAdmin,updateBook)
  *   delete:
  *     summary: Kitobni o‘chirish
  *     tags: [Books]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -289,7 +303,7 @@ booksRouter.put("/update_book/:id",chekAdmin,updateBook)
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Kitob o`chirildi
+ *                   example: Kitob o‘chirildi
  *       404:
  *         description: Kitob topilmadi
  *         content:
@@ -300,6 +314,10 @@ booksRouter.put("/update_book/:id",chekAdmin,updateBook)
  *                 message:
  *                   type: string
  *                   example: Kitob topilmadi!
+ *       401:
+ *         description: Token yo‘q yoki noto‘g‘ri
+ *       403:
+ *         description: Ruxsat etilmagan foydalanuvchi
  */
 booksRouter.delete("/delete_book/:id",chekAdmin,deleteBook)
 module.exports = booksRouter

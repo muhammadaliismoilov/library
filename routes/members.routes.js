@@ -9,6 +9,8 @@ const membersRouter = Router()
  *   get:
  *     summary: Barcha a'zolar ro‘yxatini olish
  *     tags: [Members]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A'zolar muvaffaqiyatli qaytarildi
@@ -26,14 +28,19 @@ const membersRouter = Router()
  *                     type: string
  *                     example: Jasur Qodirov
  *                   dateOfBirth:
- *                     type: string # dateOfBirth uchun string ishlatilgan, chunki example sifatida sana keltirilgan
+ *                     type: string
+ *                     format: date
  *                     example: 1995-01-01
  *                   address:
  *                     type: string
- *                     example: samarqand
+ *                     example: Samarqand
  *                   bio:
  *                     type: string
- *                     example: men kitob oqishga qiziqaman.......
+ *                     example: Men kitob o‘qishga qiziqaman...
+ *       401:
+ *         description: Token kiritilmagan yoki noto‘g‘ri
+ *       403:
+ *         description: Sizda bu ma’lumotni ko‘rishga ruxsat yo‘q
  */
 membersRouter.get("/get_members",chekAdmin,getMembers)
 /**
