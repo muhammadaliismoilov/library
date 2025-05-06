@@ -1,4 +1,4 @@
-const swaggerJsdoc = require("swagger-jsdoc");
+// const swaggerJsdoc = require("swagger-jsdoc");
 // const options = {
 //   definition: {
 //     openapi: `3.0.0`,
@@ -11,32 +11,36 @@ const swaggerJsdoc = require("swagger-jsdoc");
 //   },
 //   apis: [`./routes/*.js`],
 // };
+// const swaggerDocument = swaggerJsdoc(options);
+// module.exports = swaggerDocument;
+
+const swaggerJsdoc = require("swagger-jsdoc");
 
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Car Management API',
-      description: 'Avtomobillarni boshqarish uchun API: autentifikatsiya, kategoriyalar, avtomobillar, profil va admin funksiyalari.',
-      version: '1.0.0',
+      title: "Kutubxona loyhasi",
+      version: "1.0.0",
+      description: "Bu kutubxona loyhasining dokumentetsiyasi",
     },
-    servers: [
-      {
-        url:" http://localhost:${process.env.PORT || 4001}",
-        description: 'Mahalliy server',
-      },
-    ],
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Optional: specifies the format (JWT is common)
         },
       },
     },
+    security: [
+      {
+        bearerAuth: [], // Apply bearer auth globally to all endpoints
+      },
+    ],
   },
-  apis: ['./routes/*.routes.js'], // Barcha marshrut fayllaridagi Swagger kommentariyalarini o‘qish
+  apis: ["./routes/*.js"],
 };
+
 const swaggerDocument = swaggerJsdoc(options);
 module.exports = swaggerDocument;
