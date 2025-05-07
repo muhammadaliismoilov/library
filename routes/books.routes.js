@@ -4,52 +4,47 @@ const validateBooks = require("../Middleware/books.middleware")
 const chekAdmin = require("../Middleware/access_token_middleware")
 
 const booksRouter = Router()
-
 /**
- * @swagger
- * /get_books:
- *   get:
- *     summary: Barcha kitoblarni olish
- *     tags: [Books]
- *     responses:
- *       200:
- *         description: Barcha kitoblar ro‘yxati
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   _id:
- *                     type: string
- *                     example: 662215baba0fe4d2a80123ef
- *                   title:
- *                     type: string
- *                     example: O‘tkan kunlar
- *                   description:
- *                     type: string
- *                     example: Bu roman o‘zbek adabiyoti tarixidagi ilk realizm asaridir...
- *                   author:
- *                     type: string
- *                     example: 661f8c5bca18349b34321a8f
- *                   genre:
- *                     type: string
- *                     example: Roman
- *                   year:
- *                     type: integer
- *                     example: 1925
- *       404:
- *         description: Kitoblar topilmadi
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Kitoblar topilmadi!
- */
+* @swagger
+* /get_books:
+*   get:
+*     summary: Get all books
+*     responses:
+*       '200':
+*         description: Successfully retrieved books
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 type: object
+*                 properties:
+*                   title:
+*                     type: string
+*                     example: O'tkan kunlar
+*                   description:
+*                     type: string
+*                     example: Bu roman o'zbek adabiyoti tarixidagi ilk realizm asaridir...
+*                   author:
+*                     type: string
+*                     example: 661f8c5bca18349b34321a8f
+*                   genre:
+*                     type: string
+*                     example: Roman
+*                   year:
+*                     type: integer
+*                     example: 1925
+*       '404':
+*         description: Kitoblar topilmadi
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 message:
+*                   type: string
+*                   example: Kitoblar topilmadi!
+*/
 booksRouter.get("/get_books",getBooks)
 /**
  * @swagger
