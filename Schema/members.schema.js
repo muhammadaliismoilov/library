@@ -1,4 +1,3 @@
-const { number } = require("joi")
 const mongoose = require("mongoose")
 const currentYear = new Date().getFullYear()
 const membersSchema = new mongoose.Schema({
