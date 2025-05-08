@@ -168,6 +168,7 @@ authorsRouter.get("/search_authors",searchAuthors)
  *               - dateOfBirth
  *               - dateOfDeath
  *               - country
+ *               - author
  *               - bio
  *             properties:
  *               fullName:
@@ -184,6 +185,9 @@ authorsRouter.get("/search_authors",searchAuthors)
  *               country:
  *                 type: string
  *                 example: O'zbekiston
+ *               author:
+ *                 type: string
+ *                 example: Alisher Navoiy
  *               bio:
  *                 type: string
  *                 example: O‘zbek shoiri, dramaturg va jamoat arbobi...
