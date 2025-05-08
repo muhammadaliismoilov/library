@@ -17,7 +17,7 @@ if (err.name === "ValidationError") {
 res.status(400).json({
     message:"Validation Error",
     errors:errorMessages
-})
+})  
 }
 //xatolik mongodb noyoblik xatolaridan bolsa 
 if (err.code === 11000) {

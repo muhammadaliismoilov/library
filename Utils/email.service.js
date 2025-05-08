@@ -29,11 +29,6 @@ require("dotenv").config();
 
 async function emailSendingService(email, randomCode) {
   try {
-    // .env faylidan o‘qilgan qiymatlarni tekshirish
-    console.log("VERIFIR_EMAIL:", process.env.VERIFIR_EMAIL);
-    console.log("GOOGLE_PASS:", process.env.GOOGLE_PASS);
-    console.log("Jo‘natilayotgan email:", email);
-
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {

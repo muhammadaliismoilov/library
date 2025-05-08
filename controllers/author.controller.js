@@ -48,6 +48,14 @@ const searchAuthors = async (req,res,next) => {
 ///     ADD AUTHOR      ///
 const addAuthor = async (req, res,next) => {
   try {
+    const createAuthor = await authorModels.findOne({
+      author: req.body.author,
+    });
+    if (createAuthor) {
+      return res.status(400).json({
+        message: "Author bazada mavjud!",
+      });
+    }
     await authorModels.create(req.body);
     res.status(201).json({
       message: "Yangi Muallif qoshildi",

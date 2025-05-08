@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const currentYear = new Date().getFullYear()
 const authorSchema = new mongoose.Schema({
-    fullName :{
+    author :{
         type:String,
         required:[true,"Muallif ismi berilishi shart!"],
         minLength:[3,"Muallif ismi 3 ta belgidan kam bolmasligi kerak"]

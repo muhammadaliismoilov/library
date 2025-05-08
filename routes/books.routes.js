@@ -28,6 +28,7 @@ const booksRouter = Router()
 *                   author:
 *                     type: string
 *                     example: 661f8c5bca18349b34321a8f
+*                     description: Muallifning MongoDB ObjectID si
 *                   genre:
 *                     type: string
 *                     example: Roman

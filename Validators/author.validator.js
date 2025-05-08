@@ -3,7 +3,7 @@ const currentYear = new Date().getFullYear();
 const authorValidation = (data) => {
   try {
     const authorValudationSchema = Joi.object({
-      fullName: Joi.string().min(2).max(100).required().messages({
+      author: Joi.string().min(2).max(100).required().messages({
         "string.base": "Author ismi string ko'rinishida bo'lishi shart!",
         "string.empty": "Author ismi bo'sh bo'lmasligi kerak!",
         "any.required": "Author ismi kiritilishi shart!",
