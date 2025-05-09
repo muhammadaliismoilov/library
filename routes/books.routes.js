@@ -258,9 +258,9 @@ booksRouter.get("/search_books", searchBooks);
  *                 example: O'zbekiston
  *               author:
  *                 type: string
- *                 example: 661f8c5bca18349b34321a8f
- *                 description: Muallifning MongoDB ObjectID si
- *               description:
+ *                 example: Abdulla Qodiriy
+ *                 description: Muallifning ismi (string sifatida)
+ *               discription:
  *                 type: string
  *                 example: Bu roman o'zbek adabiyoti tarixidagi ilk realizm asaridir...
  *     responses:
@@ -283,15 +283,13 @@ booksRouter.get("/search_books", searchBooks);
  *                     title:
  *                       type: string
  *                       example: O'tkan kunlar
- *                     description:
+ *                     discription:
  *                       type: string
  *                       example: Bu roman o'zbek adabiyoti tarixidagi ilk realizm asaridir...
  *                     author:
  *                       type: string
- *                       example: 661f8c5bca18349b34321a8f
- *                     genre:
- *                       type: string
- *                       example: Roman
+ *                       example: Abdulla Qodiriy
+ *                       description: Muallifning ismi (string sifatida)
  *                     year:
  *                       type: integer
  *                       example: 1925
