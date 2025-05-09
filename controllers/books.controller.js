@@ -50,32 +50,74 @@ const searchBooks = async (req, res, next) => {
 };
 
 //////       ADD BOOK       /////
+// const addBook = async (req, res, next) => {
+//    try {
+//     const author = await authorModels.findOne({ author: req.body.author });
+//     if (!author) {
+//       return next(BaseError.BadRequest(404, "Muallif topilmadi!"));
+//     }
+//     const book = await booksModels.findOne(req.body.title)
+//     console.log(req.body);
+    
+//     const newBook = await booksModels.create({
+//       title: req.body.title,
+//       pages: req.body.pages,
+//       year: req.body.year,
+//       price: req.body.price,
+//       country: req.body.country,
+//       author: author.author, 
+//       discription: req.body.discription,
+//     });
+//     res.status(201).json({
+//       message: "Yangi kitob qo'shildi",
+//       book: {
+//         ...newBook._doc, 
+//         author: author.author, 
+//       },
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+
+// };
 const addBook = async (req, res, next) => {
-   try {
+  try {
+    // Muallifni qidirish
     const author = await authorModels.findOne({ author: req.body.author });
     if (!author) {
       return next(BaseError.BadRequest(404, "Muallif topilmadi!"));
     }
+
+    // Kitob nomini tekshirish (title bo'yicha qidiruv)
+    const existingBook = await booksModels.findOne({ title: req.body.title });
+    if (existingBook) {
+      return res.status(400).json({
+        message: "Bu kitob bazada mavjud",
+      });
+    }
+
+    // Yangi kitob qo'shish
     const newBook = await booksModels.create({
       title: req.body.title,
       pages: req.body.pages,
       year: req.body.year,
       price: req.body.price,
       country: req.body.country,
-      author: author.author, 
+      author: author.author,
       discription: req.body.discription,
     });
+
+    // Muvaffaqiyatli javob qaytarish
     res.status(201).json({
       message: "Yangi kitob qo'shildi",
       book: {
-        ...newBook._doc, 
-        author: author.author, 
+        ...newBook._doc,
+        author: author.author,
       },
     });
   } catch (error) {
     next(error);
   }
-
 };
 
 ///         UPDATE BOOK     ////
