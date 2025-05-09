@@ -46,3 +46,74 @@ const authorValidation = (data) => {
   }
 };
 module.exports = authorValidation;
+
+// const Joi = require("joi");
+// const currentYear = new Date().getFullYear();
+
+// const authorValidation = (data) => {
+//   const authorValidationSchema = Joi.object({
+//     author: Joi.string().min(2).max(100).required().messages({
+//       "string.base": "Muallif ismi string ko'rinishida bo'lishi kerak!",
+//       "string.empty": "Muallif ismi bo'sh bo'lmasligi kerak!",
+//       "any.required": "Muallif ismini kiritish shart!",
+//       "string.min": "Muallif ismi kamida 2 ta belgidan iborat bo'lishi kerak!",
+//       "string.max": "Muallif ismi 100 ta belgidan oshmasligi kerak!",
+//     }),
+//     dateOfBirth: Joi.date()
+//       .max(currentYear)
+//       .required()
+//       .messages({
+//         "date.base": "Tug'ilgan sana to'g'ri sana ko'rinishida bo'lishi kerak!",
+//         "date.empty": "Tug'ilgan sana bo'sh bo'lmasligi kerak!",
+//         "any.required": "Tug'ilgan sanani kiritish shart!",
+//         "date.max": `Tug'ilgan sana ${currentYear} yildan oshmasligi kerak!`,
+//       }),
+//     dateOfDeath: Joi.date()
+//       .min(Joi.ref("dateOfBirth"))
+//       .max(currentYear)
+//       .optional()
+//       .allow(null)
+//       .messages({
+//         "date.base": "Vafot sanasi to'g'ri sana ko'rinishida bo'lishi kerak!",
+//         "date.min": "Vafot sanasi tug'ilgan sanadan keyin bo'lishi kerak!",
+//         "date.max": `Vafot sanasi ${currentYear} yildan oshmasligi kerak!`,
+//       }),
+//     country: Joi.string().min(2).max(120).required().messages({
+//       "string.base": "Davlat nomi string ko'rinishida bo'lishi kerak!",
+//       "string.empty": "Davlat nomi bo'sh bo'lmasligi kerak!",
+//       "any.required": "Davlat nomini kiritish shart!",
+//       "string.min": "Davlat nomi kamida 2 ta belgidan iborat bo'lishi kerak!",
+//       "string.max": "Davlat nomi 120 ta belgidan oshmasligi kerak!",
+//     }),
+//     bio: Joi.string().min(1).required().messages({
+//       "string.base": "Biografiya string ko'rinishida bo'lishi kerak!",
+//       "string.empty": "Biografiya bo'sh bo'lmasligi kerak!",
+//       "any.required": "Biografiyani kiritish shart!",
+//       "string.min": "Biografiya kamida 1 ta belgidan iborat bo'lishi kerak!",
+//     }),
+//   });
+
+//   if (Array.isArray(data)) {
+//     const results = data.map((item, index) => ({
+//       index,
+//       result: authorValidationSchema.validate(item, { abortEarly: false }),
+//     }));
+
+//     const errors = results
+//       .filter(({ result }) => result.error)
+//       .map(({ index, result }) => ({
+//         index,
+//         errors: result.error.details.map((err) => err.message),
+//       }));
+
+//     if (errors.length > 0) {
+//       return { error: errors };
+//     }
+//     return { value: data };
+//   }
+
+//   return authorValidationSchema.validate(data, { abortEarly: false });
+// };
+
+
+// module.exports = authorValidation;
